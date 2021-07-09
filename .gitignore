@@ -7,6 +7,12 @@
 *.njsproj
 *.sln
 
+build/
+**/build/
+
+.metadata
+.settings/
+
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,visualstudiocode,node,vue,vuejs
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,visualstudiocode,node,vue,vuejs
 
