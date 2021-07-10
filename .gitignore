@@ -7,9 +7,6 @@
 *.njsproj
 *.sln
 
-build/
-**/build/
-
 .metadata
 .settings/
 
