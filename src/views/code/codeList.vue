@@ -2,7 +2,7 @@
   <div>
     <layout/>
       <div class="divLeft mt10">
-        <el-input v-model="form.name" placeholder="코드명" style="width:90%"></el-input>
+        <el-input v-model="form.name" placeholder="코드명" style="width:90%" @change="updateSearchNm"></el-input>
         <el-button @click="doList" type="primary">조회</el-button>
       </div>
 
@@ -123,6 +123,7 @@ export default {
   data () {
     return {
       form: {
+        searchNm: '',
         commCdId: ''
       },
       codeList: [],
@@ -141,6 +142,9 @@ export default {
       reqPost('/code/selectRepCode', this.form).then(response => {
         this.codeDetailList = response.data.list
       })
+    },
+    updateSearchNm (input) {
+      this.form.searchNm = input
     }
   }
 }
