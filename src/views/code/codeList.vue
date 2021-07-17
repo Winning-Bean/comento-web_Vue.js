@@ -11,13 +11,13 @@
           <span>대표코드</span>
         </div>
         <el-row type="flex">
-          <el-table :data="codeList" border highlight-current-row @row-click="rowSel" height="300">
-            <el-table-column align="center" label="코드" width="150">
+          <el-table :data="codeList" border highlight-current-row @row-click="doDetailList" height="300">
+            <el-table-column align="center" label="코드" width="180">
               <template slot-scope="scope">
                 {{scope.row.commCdId}}
               </template>
             </el-table-column>
-            <el-table-column align="center" label="코드명" width="150">
+            <el-table-column align="center" label="코드명" width="180">
               <template slot-scope="scope">
                 {{scope.row.commCdNm}}
               </template>
@@ -27,7 +27,7 @@
                 {{scope.row.commCdEng}}
               </template>
             </el-table-column>
-            <el-table-column label="코드순서" align="center" width="150">
+            <el-table-column label="코드순서" align="center" width="100">
               <template slot-scope="scope">
                 {{scope.row.cdSort}}
               </template>
@@ -61,50 +61,50 @@
           <span>상세코드</span>
         </div>
         <el-row type="flex">
-          <el-table :data="codeList" border highlight-current-row @row-click="rowSel" height="300">
-            <el-table-column align="center" label="대표코드" width="100">
+          <el-table :data="codeDetailList" border highlight-current-row height="300">
+            <el-table-column align="center" label="대표코드" width="120">
               <template slot-scope="scope">
-                {{scope.row.seqNo}}
+                {{scope.row.commCdId}}
               </template>
             </el-table-column>
-            <el-table-column align="center" label="코드" width="100">
+            <el-table-column align="center" label="코드" width="120">
               <template slot-scope="scope">
-                {{scope.row.seqNo}}
+                {{scope.row.cdId}}
               </template>
             </el-table-column>
-            <el-table-column label="코드명" align="center" width="100">
+            <el-table-column label="코드명" align="center" width="120">
               <template slot-scope="scope">
-                {{scope.row.viewCnt}}
+                {{scope.row.cdNm}}
               </template>
             </el-table-column>
             <el-table-column label="코드영문명" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.cdEng}}
               </template>
             </el-table-column>
-            <el-table-column label="코드순서" align="center" width="150">
+            <el-table-column label="코드순서" align="center" width="100">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.cdSort}}
               </template>
             </el-table-column>
             <el-table-column label="사용여부" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.cdUseYn}}
               </template>
             </el-table-column>
             <el-table-column label="연결코드1" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.conn1Cd}}
               </template>
             </el-table-column>
             <el-table-column label="연결코드2" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.conn2Cd}}
               </template>
             </el-table-column>
             <el-table-column label="연결코드3" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.conn3Cd}}
               </template>
             </el-table-column>
           </el-table>
@@ -127,7 +127,7 @@ export default {
         statCd: ''
       },
       codeList: [],
-      codeForm: {},
+      codeDetailList: [],
       ui: 'html'
     }
   },
@@ -137,8 +137,10 @@ export default {
         this.codeList = response.data.list
       })
     },
-    rowSel (a, b, c) {
-      this.codeForm = a
+    doDetailList () {
+      reqPost('/code/selectRepCode', this.form).then(response => {
+        this.codeDetailList = response.data.list
+      })
     }
   }
 }
