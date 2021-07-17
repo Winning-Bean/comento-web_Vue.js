@@ -11,45 +11,45 @@
           <span>대표코드</span>
         </div>
         <el-row type="flex">
-          <el-table :data="noticeList" border highlight-current-row @row-click="rowSel" height="300">
+          <el-table :data="codeList" border highlight-current-row @row-click="rowSel" height="300">
             <el-table-column align="center" label="코드" width="150">
               <template slot-scope="scope">
-                {{scope.row.seqNo}}
+                {{scope.row.commCdId}}
               </template>
             </el-table-column>
             <el-table-column align="center" label="코드명" width="150">
               <template slot-scope="scope">
-                {{scope.row.seqNo}}
+                {{scope.row.commCdNm}}
               </template>
             </el-table-column>
             <el-table-column label="코드영문명" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.viewCnt}}
+                {{scope.row.commCdEng}}
               </template>
             </el-table-column>
             <el-table-column label="코드순서" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.cdSort}}
               </template>
             </el-table-column>
             <el-table-column label="사용여부" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.cdUseYn}}
               </template>
             </el-table-column>
             <el-table-column label="연결코드1" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.conn1Cd}}
               </template>
             </el-table-column>
             <el-table-column label="연결코드2" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.conn2Cd}}
               </template>
             </el-table-column>
             <el-table-column label="연결코드3" align="center" width="150">
               <template slot-scope="scope">
-                {{scope.row.regDttm}}
+                {{scope.row.conn3Cd}}
               </template>
             </el-table-column>
           </el-table>
@@ -61,7 +61,7 @@
           <span>상세코드</span>
         </div>
         <el-row type="flex">
-          <el-table :data="noticeList" border highlight-current-row @row-click="rowSel" height="300">
+          <el-table :data="codeList" border highlight-current-row @row-click="rowSel" height="300">
             <el-table-column align="center" label="대표코드" width="100">
               <template slot-scope="scope">
                 {{scope.row.seqNo}}
@@ -115,6 +115,7 @@
 
 <script>
 import layout from '@/views/layout/Layout'
+import {reqPost} from '@/api/tran'
 
 export default {
   name: 'CodeList',
@@ -125,9 +126,19 @@ export default {
         subject: '',
         statCd: ''
       },
-      noticeList: [],
-      noticeForm: {},
+      codeList: [],
+      codeForm: {},
       ui: 'html'
+    }
+  },
+  methods: {
+    doList () {
+      reqPost('/code/selectCode', this.form).then(response => {
+        this.codeList = response.data.list
+      })
+    },
+    rowSel (a, b, c) {
+      this.codeForm = a
     }
   }
 }
