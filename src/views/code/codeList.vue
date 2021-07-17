@@ -123,8 +123,7 @@ export default {
   data () {
     return {
       form: {
-        subject: '',
-        statCd: ''
+        commCdId: ''
       },
       codeList: [],
       codeDetailList: [],
@@ -137,7 +136,8 @@ export default {
         this.codeList = response.data.list
       })
     },
-    doDetailList () {
+    doDetailList (row) {
+      this.form.commCdId = row.commCdId
       reqPost('/code/selectRepCode', this.form).then(response => {
         this.codeDetailList = response.data.list
       })
